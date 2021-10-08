@@ -1,0 +1,20 @@
+{% extends 'app_delivery/base.html' %}
+
+{% block conteudo %}
+<div class= 'text-white'>
+<p><h4 style= "float:right; width: 96%">Cadastrar Pratos:</h4></p>
+<form action="." method="POST">
+    <div class="container">
+      <div id="login-row">
+        <div id="login-column" class="col-md-6">             
+          <h4 class="col-md-6 offset-md-3" >{% csrf_token %}
+                                          {{form.as_p}}</h4>
+
+          <p><h4 style= "float:right; width: 65%"><input class="btn btn-secondary" type="submit" value='Confirma Atendimento'></h4></p>
+        </div>
+      </div>   
+    </div>
+  </div>
+</form>
+    
+{% endblock %}

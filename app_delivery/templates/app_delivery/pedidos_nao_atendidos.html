@@ -1,0 +1,25 @@
+{% extends 'app_delivery/base.html' %}
+
+{% block conteudo %}
+    <h3 class= "text-white" style= "float:right; width: 96%">Pedidos que ainda não foram atendidos:</h3>
+        {% for i in lista %}  
+         <h5 class= "text-white"><p>
+            <div class= "container">
+                <h5 class="text-white bg-dark" style= "float:right; width: 96%">
+                    Nome: {{ i.cliente.nome}} -
+            
+                    {% for prato in i.listaPratos %}
+                        {{prato}}
+                    {% endfor%}
+
+                    {% if i.aceitar %}
+                    <span class="badge badge-success"> Pedido aceito </span>
+                    {% endif%}
+                    <a class="badge badge-primary" href="{% url 'aceita_pedido' i.id %}">Aceita Pedido</a>
+                    <a class="badge badge-primary" href="{% url 'pedido_pronto' i.id %}">Pedido Pronto</a></h5></h5></p>
+
+
+    {% endfor %}
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+{% endblock %}

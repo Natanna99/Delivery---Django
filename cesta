@@ -1,0 +1,115 @@
+def add_cesta(request, id):
+    if request.user.is_authenticated:
+        if Pedido.objects.filter(cliente__usuarios= request.user):
+            pedido= Pedido()
+            lista=[] 
+            cliente= Cliente.objects.get(usuarios= request.user)
+            pedido.cliente= cliente
+            prato= Pratos.objects.get(pk= id)
+            lista.append(prato)        
+            pedido.pratos = lista
+            pedido.save()
+     
+        return redirect('lista_de_pratos' )
+        
+    else:
+        redirect('/autenticacao/login')
+
+
+def finalizar_pedido(request):
+    if request.user.is_authenticated:
+        if Pedido.objects.filter(cliente__usuarios= request.user):
+            pedido= Pedido()
+            cliente= Cliente.objects.get(usuarios= request.user)  
+            pedido.cliente= cliente
+            pedido.status= "Procesando" 
+            pedido.save()
+        listaP= Pedido.objects.filter(cliente__usuarios= request.user)
+
+        return render(request, 'app_delivery/lista_pratos_cliente.html', {'lista': listaP})
+
+
+def add_cesta(request, id):
+    if request.user.is_authenticated:
+        lista= []
+        if Pedido.objects.filter(cliente__usuarios= request.user):
+           if Pedido.objects.filter(status= 'null'):
+                pedido= Pedido.objects.get(status= 'null')
+                cliente= Cliente.objects.get(usuarios= request.user) 
+                prato= Pratos.objects.get(pk= id)
+                lista.append(prato)
+                pedido.pratos = lista
+                pedido.save()
+        else:
+            pedido= Pedido()
+            cliente= Cliente.objects.get(usuarios= request.user) 
+            prato= Pratos.objects.get(pk= id)
+            pedido.cliente= cliente
+            lista.append(prato)
+            pedido.status= 'null'
+            pedido.pratos = lista
+            pedido.save()
+        
+     
+        return redirect('lista_de_pratos' )
+        
+    else:
+        redirect('/autenticacao/login')
+
+
+def finalizar_pedido(request):
+    if request.user.is_authenticated:
+        cliente= Cliente.objects.get(usuarios= request.user) 
+        pedido= Pedido.objects.get(status= 'null')
+        
+        pedido.cliente= cliente
+        pedido.status= "Procesando"
+        pedido.save()
+        listaP= Pedido.objects.filter(cliente= cliente)
+
+        #lista_pedido= []
+
+        return render(request, 'app_delivery/lista_pratos_cliente.html', {'lista': listaP})
+        
+
+def add_cesta(request, id):
+    if request.user.is_authenticated:
+        lista= []
+        if Cliente.objects.filter(usuarios= request.user):
+           if Pedido.objects.filter(status= 'null'):
+                pedido= Pedido.objects.get(status= 'null')
+                cliente= Cliente.objects.get(usuarios= request.user) 
+                pedido.pratos.append(Pratos.objects.get(pk= id))
+                pedido.save()
+                pedido.pratos= []
+        else:
+            pedido= Pedido()
+            cliente= Cliente.objects.get(usuarios= request.user) 
+
+            pedido.cliente= cliente
+            pedido.pratos.append(Pratos.objects.get(pk= id))
+            pedido.status= 'null'
+            pedido.save()
+        
+     
+        return redirect('lista_de_pratos')
+        
+    else:
+        redirect('/autenticacao/login')
+
+
+def finalizar_pedido(request):
+    if request.user.is_authenticated:
+        if  Pedido.objects.filter(cliente__usuarios= request.user):
+            cliente= Cliente.objects.get(usuarios= request.user)
+            pedido= Pedido.objects.get(status= 'null') 
+
+            
+            pedido.cliente= cliente
+            pedido.status= "Procesando"
+            pedido.save()
+            listaP= Pedido.objects.filter(cliente= cliente)
+
+            #lista_pedido= []
+
+            return render(request, 'app_delivery/lista_pratos_cliente.html', {'lista': listaP})

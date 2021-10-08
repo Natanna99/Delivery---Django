@@ -1,0 +1,15 @@
+{% extends 'app_delivery/base.html' %}
+
+{% block conteudo %}
+<div class=" text-white">
+    <h3 style= "float:right; width: 98%">Lista de Pratos Cadastrado</h3>
+    {% for i in lista %}
+    <p style= "float:right; width: 96%">{{ i.nome }} - {{i.descricao}} - {{i.preco}}
+        <a class="badge badge-danger" href="{% url 'excluir_prato' i.id %}">Delete</a>
+    </p>
+    {% endfor %}
+    <h5 class=" text-white" style= "float:right; width: 96%">Cadastrar um novo prato: <a class="btn btn-secondary" href="{% url 'cadastrar_pratos'%}">Cadastrar  </a>
+        Pedidos: <a class="btn btn-secondary" href="{% url 'pedidos'%}">Ver Pedidos </a></h5>
+</div>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+{% endblock %}
